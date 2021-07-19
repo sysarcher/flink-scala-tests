@@ -18,11 +18,16 @@
 
 package spendreport
 
+import org.apache.flink.api.common.serialization.SimpleStringSchema
 import org.apache.flink.streaming.api.scala._
 import org.apache.flink.walkthrough.common.sink.AlertSink
 import org.apache.flink.walkthrough.common.entity.Alert
 import org.apache.flink.walkthrough.common.entity.Transaction
 import org.apache.flink.walkthrough.common.source.TransactionSource
+import org.apache.flink.streaming.api.scala._
+
+import java.util.Properties
+//import org.apache.flink.streaming.util.
 
 /**
   * Skeleton code for the DataStream code walkthrough
@@ -31,6 +36,11 @@ object FraudDetectionJob {
 
   @throws[Exception]
   def main(args: Array[String]): Unit = {
+    val properties: Properties = new Properties()
+    properties.setProperty("bootstrap.servers", "localhost:9094")
+    properties.setProperty("group.id", "testKafka")
+    val kafkaConsumer = new FlinkKafkaConsumer[String]("car.create", new SimpleStringSchema(), properties)
+
     val env: StreamExecutionEnvironment = StreamExecutionEnvironment.getExecutionEnvironment
 
     val transactions: DataStream[Transaction] = env
