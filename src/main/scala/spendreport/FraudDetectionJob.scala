@@ -27,7 +27,7 @@ import org.apache.flink.walkthrough.common.source.TransactionSource
 import org.apache.flink.streaming.api.scala._
 
 import java.util.Properties
-//import org.apache.flink.streaming.util.
+import org.apache.flink.streaming.connectors.kafka.FlinkKafkaConsumer
 
 /**
   * Skeleton code for the DataStream code walkthrough
@@ -36,10 +36,6 @@ object FraudDetectionJob {
 
   @throws[Exception]
   def main(args: Array[String]): Unit = {
-    val properties: Properties = new Properties()
-    properties.setProperty("bootstrap.servers", "localhost:9094")
-    properties.setProperty("group.id", "testKafka")
-    val kafkaConsumer = new FlinkKafkaConsumer[String]("car.create", new SimpleStringSchema(), properties)
 
     val env: StreamExecutionEnvironment = StreamExecutionEnvironment.getExecutionEnvironment
 
